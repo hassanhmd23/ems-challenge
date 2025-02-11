@@ -16,7 +16,7 @@ const db = new sqlite3.Database(sqlitePath);
 
 const employees = [
   {
-    name: "John Doe",
+    full_name: "John Doe",
     email: "john.doe@example.com",
     phone_number: "+1234567890",
     date_of_birth: "1990-05-15",
@@ -28,7 +28,7 @@ const employees = [
     end_date: null,
   },
   {
-    name: "Jane Smith",
+    full_name: "Jane Smith",
     email: "jane.smith@example.com",
     phone_number: "+9876543210",
     date_of_birth: "1985-08-22",
@@ -40,7 +40,7 @@ const employees = [
     end_date: null,
   },
   {
-    name: "Alice Johnson",
+    full_name: "Alice Johnson",
     email: "alice.johnson@example.com",
     phone_number: "+1122334455",
     date_of_birth: "1993-12-10",
@@ -52,7 +52,7 @@ const employees = [
     end_date: null,
   },
   {
-    name: "Bob Brown",
+    full_name: "Bob Brown",
     email: "bob.brown@example.com",
     phone_number: "+1029384756",
     date_of_birth: "1988-11-30",
@@ -64,7 +64,7 @@ const employees = [
     end_date: null,
   },
   {
-    name: "Charlie Green",
+    full_name: "Charlie Green",
     email: "charlie.green@example.com",
     phone_number: "+9081726354",
     date_of_birth: "1995-03-05",
@@ -76,7 +76,7 @@ const employees = [
     end_date: null,
   },
   {
-    name: "David White",
+    full_name: "David White",
     email: "david.white@example.com",
     phone_number: "+5647382910",
     date_of_birth: "1982-07-22",
@@ -88,7 +88,7 @@ const employees = [
     end_date: null,
   },
   {
-    name: "Emma Black",
+    full_name: "Emma Black",
     email: "emma.black@example.com",
     phone_number: "+6172839450",
     date_of_birth: "1991-09-18",
@@ -100,7 +100,7 @@ const employees = [
     end_date: null,
   },
   {
-    name: "Frank Wilson",
+    full_name: "Frank Wilson",
     email: "frank.wilson@example.com",
     phone_number: "+8192736450",
     date_of_birth: "1987-04-25",
@@ -112,7 +112,7 @@ const employees = [
     end_date: null,
   },
   {
-    name: "Grace Hall",
+    full_name: "Grace Hall",
     email: "grace.hall@example.com",
     phone_number: "+4352610987",
     date_of_birth: "1994-02-11",
@@ -124,7 +124,7 @@ const employees = [
     end_date: null,
   },
   {
-    name: "Henry Lee",
+    full_name: "Henry Lee",
     email: "henry.lee@example.com",
     phone_number: "+3298745610",
     date_of_birth: "1989-06-13",
