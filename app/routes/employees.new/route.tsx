@@ -1,35 +1,64 @@
-import { Form, redirect, type ActionFunction } from "react-router";
-import { getDB } from "~/db/getDB";
+import {
+  data,
+  redirect,
+  useActionData,
+  type ActionFunction,
+} from "react-router";
+import * as Yup from "yup";
+import { parseFormData } from "@mjackson/form-data-parser";
+
+import EmployeeForm from "~/components/form/EmployeeForm";
+import { EmployeeSchema as schema, type Employee } from "~/types/Employee";
+import { createEmployee } from "~/repositories/employeesRepository";
+import validationAction from "~/utils/validationAction";
+import { uploadHandler } from "~/utils/uploadHandler";
+import { profilePictureStorage } from "~/utils/storage.server";
+import objectNotEmpty from "~/utils/objectNotEmpty";
+
+type ActionInput = Yup.InferType<typeof schema>;
 
 export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-  const full_name = formData.get("full_name");
+  const parsedFormData = await parseFormData(request, uploadHandler);
 
-  const db = await getDB();
-  await db.run(
-    'INSERT INTO employees (full_name) VALUES (?)',
-    [full_name]
-  );
+  let { validatedFormData, errors } = await validationAction<ActionInput>({
+    parsedFormData,
+    schema,
+  });
+
+  if (objectNotEmpty(errors)) {
+    profilePictureStorage.remove(validatedFormData.profile_picture as string);
+    return data(
+      { errors, validatedFormData },
+      {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
+  const { lastID } = await createEmployee(validatedFormData as Employee);
+
+  if (!lastID) {
+    return data(
+      { errors: { full_name: "Could not create employee" }, validatedFormData },
+      {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
   return redirect("/employees");
-}
+};
 
 export default function NewEmployeePage() {
-  return (
-    <div>
-      <h1>Create New Employee</h1>
-      <Form method="post">
-        <div>
-          <label htmlFor="full_name">Full Name</label>
-          <input type="text" name="full_name" id="full_name" required />
-        </div>
-        <button type="submit">Create Employee</button>
-      </Form>
-      <hr />
-      <ul>
-        <li><a href="/employees">Employees</a></li>
-        <li><a href="/timesheets">Timesheets</a></li>
-      </ul>
-    </div>
-  );
+  const actionData = useActionData();
+  const errors = actionData?.errors;
+  const fields = actionData?.validatedFormData as ActionInput;
+
+  return <EmployeeForm fields={fields} errors={errors} />;
 }

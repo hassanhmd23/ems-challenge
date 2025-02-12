@@ -20,7 +20,7 @@ const employees = [
     email: "john.doe@example.com",
     phone_number: "+1234567890",
     date_of_birth: "1990-05-15",
-    profile_picture: "uploads/john_doe.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "Software Engineer",
     department: "Engineering",
     salary: 75000,
@@ -32,7 +32,7 @@ const employees = [
     email: "jane.smith@example.com",
     phone_number: "+9876543210",
     date_of_birth: "1985-08-22",
-    profile_picture: "uploads/jane_smith.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "Project Manager",
     department: "Management",
     salary: 90000,
@@ -44,7 +44,7 @@ const employees = [
     email: "alice.johnson@example.com",
     phone_number: "+1122334455",
     date_of_birth: "1993-12-10",
-    profile_picture: "uploads/alice_johnson.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "UI/UX Designer",
     department: "Design",
     salary: 68000,
@@ -56,7 +56,7 @@ const employees = [
     email: "bob.brown@example.com",
     phone_number: "+1029384756",
     date_of_birth: "1988-11-30",
-    profile_picture: "uploads/bob_brown.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "Data Scientist",
     department: "AI Research",
     salary: 85000,
@@ -68,7 +68,7 @@ const employees = [
     email: "charlie.green@example.com",
     phone_number: "+9081726354",
     date_of_birth: "1995-03-05",
-    profile_picture: "uploads/charlie_green.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "DevOps Engineer",
     department: "Infrastructure",
     salary: 72000,
@@ -80,7 +80,7 @@ const employees = [
     email: "david.white@example.com",
     phone_number: "+5647382910",
     date_of_birth: "1982-07-22",
-    profile_picture: "uploads/david_white.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "Security Analyst",
     department: "Cybersecurity",
     salary: 94000,
@@ -92,7 +92,7 @@ const employees = [
     email: "emma.black@example.com",
     phone_number: "+6172839450",
     date_of_birth: "1991-09-18",
-    profile_picture: "uploads/emma_black.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "HR Manager",
     department: "Human Resources",
     salary: 71000,
@@ -104,7 +104,7 @@ const employees = [
     email: "frank.wilson@example.com",
     phone_number: "+8192736450",
     date_of_birth: "1987-04-25",
-    profile_picture: "uploads/frank_wilson.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "System Administrator",
     department: "IT Support",
     salary: 67000,
@@ -116,7 +116,7 @@ const employees = [
     email: "grace.hall@example.com",
     phone_number: "+4352610987",
     date_of_birth: "1994-02-11",
-    profile_picture: "uploads/grace_hall.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "Marketing Specialist",
     department: "Marketing",
     salary: 65000,
@@ -128,7 +128,7 @@ const employees = [
     email: "henry.lee@example.com",
     phone_number: "+3298745610",
     date_of_birth: "1989-06-13",
-    profile_picture: "uploads/henry_lee.jpg",
+    profile_picture: "83e9dcba-3eff-41a1-9680-3ea2e433d6da",
     job_title: "Accountant",
     department: "Finance",
     salary: 78000,
@@ -210,54 +210,6 @@ const timesheets = [
   },
 ];
 
-const documents = [
-  {
-    employee_id: 1,
-    file_path: "uploads/documents/john_doe_resume.pdf",
-    file_type: "resume",
-  },
-  {
-    employee_id: 1,
-    file_path: "uploads/documents/john_doe_id.jpg",
-    file_type: "id_card",
-  },
-  {
-    employee_id: 2,
-    file_path: "uploads/documents/jane_smith_contract.pdf",
-    file_type: "contract",
-  },
-  {
-    employee_id: 3,
-    file_path: "uploads/documents/alice_johnson_portfolio.pdf",
-    file_type: "portfolio",
-  },
-  {
-    employee_id: 4,
-    file_path: "uploads/documents/bob_brown_paper.pdf",
-    file_type: "research_paper",
-  },
-  {
-    employee_id: 5,
-    file_path: "uploads/documents/charlie_green_cert.pdf",
-    file_type: "certificate",
-  },
-  {
-    employee_id: 6,
-    file_path: "uploads/documents/david_white_training.pdf",
-    file_type: "training_material",
-  },
-  {
-    employee_id: 7,
-    file_path: "uploads/documents/emma_black_policy.pdf",
-    file_type: "policy_document",
-  },
-  {
-    employee_id: 8,
-    file_path: "uploads/documents/frank_wilson_manual.pdf",
-    file_type: "technical_manual",
-  },
-];
-
 const insertData = (table, data) => {
   const columns = Object.keys(data[0]).join(", ");
   const placeholders = Object.keys(data[0])
@@ -278,7 +230,6 @@ const insertData = (table, data) => {
 db.serialize(() => {
   insertData("employees", employees);
   insertData("timesheets", timesheets);
-  insertData("documents", documents);
 });
 
 db.close((err) => {
