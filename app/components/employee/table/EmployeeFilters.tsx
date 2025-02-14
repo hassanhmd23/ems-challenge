@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 
-type FiltersProps = {
+type Props = {
   initialFilters: { department?: string; jobTitle?: string };
   onFilterChange: (filters: { department?: string; jobTitle?: string }) => void;
 };
 
-export default function Filters({
+export default function EmployeeFilters({
   initialFilters,
   onFilterChange,
-}: FiltersProps) {
+}: Props) {
   const [filters, setFilters] = useState(initialFilters);
   const [departments, setDepartments] = useState<string[]>([]);
   const [jobTitles, setJobTitles] = useState<string[]>([]);
 
   useEffect(() => {
     async function fetchFilters() {
-      const res = await fetch("/api/filters");
+      const res = await fetch("/api/employee-filters");
       const data = await res.json();
       setDepartments(data.departments);
       setJobTitles(data.jobTitles);

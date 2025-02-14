@@ -2,10 +2,10 @@ import { Fragment } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import capitalizeHeader from "~/utils/capitalizeHeader";
 import SearchBar from "./SearchBar";
-import Filters from "./Filters";
+import EmployeeFilters from "./EmployeeFilters";
 
-type Props<T extends { [key: string]: any }> = {
-  data: T[];
+type Props = {
+  data: any;
   page: number;
   limit: number;
   totalPages: number;
@@ -13,10 +13,9 @@ type Props<T extends { [key: string]: any }> = {
   sortOrder: "asc" | "desc";
   searchQuery?: string;
   filters: { department?: string; jobTitle?: string };
-  actionButtons?: React.ReactNode;
 };
 
-function Table<T extends { [key: string]: any }>({
+function EmployeeTable({
   data,
   page,
   limit,
@@ -25,8 +24,7 @@ function Table<T extends { [key: string]: any }>({
   sortOrder,
   searchQuery,
   filters,
-  actionButtons,
-}: Props<T>) {
+}: Props) {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -72,7 +70,7 @@ function Table<T extends { [key: string]: any }>({
   return (
     <>
       <SearchBar initialQuery={searchQuery} onSearch={handleSearch} />
-      <Filters initialFilters={filters} onFilterChange={handleFilterChange} />
+      <EmployeeFilters initialFilters={filters} onFilterChange={handleFilterChange} />
       <div className="overflow-x-auto rounded-t-lg">
         <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
           <thead className="ltr:text-left rtl:text-right">
@@ -100,7 +98,7 @@ function Table<T extends { [key: string]: any }>({
           </thead>
 
           <tbody className="divide-y divide-gray-200">
-            {data.map((row, index) => (
+            {data.map((row: any, index: number) => (
               <tr key={index}>
                 {Object.keys(row).map((value, idx) =>
                   value === "id" ? (
@@ -188,4 +186,4 @@ function Table<T extends { [key: string]: any }>({
   );
 }
 
-export default Table;
+export default EmployeeTable;

@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router";
-import Table from "~/components/table/Table";
+import EmployeeTable from "~/components/employee/table/EmployeeTable";
 import type { Route } from "./+types/route";
 import {
   getEmployeesWithRules,
@@ -68,7 +68,7 @@ export default function EmployeesPage() {
   } = useLoaderData();
 
   return (
-    <Table
+    <EmployeeTable
       data={employees}
       page={currentPage}
       limit={limit}

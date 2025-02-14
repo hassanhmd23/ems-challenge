@@ -17,7 +17,7 @@ export default function EmployeeForm({ employee, errors, fields }: Props) {
       <Form method="post" encType="multipart/form-data">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium">Full Name</label>
+            <label className="block text-sm font-medium">Full Name<span className="text-red-400">*</span></label>
             <input
               type="text"
               name="full_name"
@@ -28,7 +28,7 @@ export default function EmployeeForm({ employee, errors, fields }: Props) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Email</label>
+            <label className="block text-sm font-medium">Email<span className="text-red-400">*</span></label>
             <input
               type="email"
               name="email"
@@ -39,7 +39,7 @@ export default function EmployeeForm({ employee, errors, fields }: Props) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Phone</label>
+            <label className="block text-sm font-medium">Phone<span className="text-red-400">*</span></label>
             <input
               type="text"
               name="phone_number"
@@ -50,7 +50,7 @@ export default function EmployeeForm({ employee, errors, fields }: Props) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Date of Birth</label>
+            <label className="block text-sm font-medium">Date of Birth<span className="text-red-400">*</span></label>
             <input
               type="date"
               name="date_of_birth"
@@ -61,7 +61,7 @@ export default function EmployeeForm({ employee, errors, fields }: Props) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Department</label>
+            <label className="block text-sm font-medium">Department<span className="text-red-400">*</span></label>
             <input
               type="text"
               name="department"
@@ -72,7 +72,7 @@ export default function EmployeeForm({ employee, errors, fields }: Props) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Job Title</label>
+            <label className="block text-sm font-medium">Job Title<span className="text-red-400">*</span></label>
             <input
               type="text"
               name="job_title"
@@ -83,7 +83,7 @@ export default function EmployeeForm({ employee, errors, fields }: Props) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Salary</label>
+            <label className="block text-sm font-medium">Salary<span className="text-red-400">*</span></label>
             <input
               type="number"
               name="salary"
@@ -94,7 +94,7 @@ export default function EmployeeForm({ employee, errors, fields }: Props) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Start Date</label>
+            <label className="block text-sm font-medium">Start Date<span className="text-red-400">*</span></label>
             <input
               type="date"
               name="start_date"
@@ -106,7 +106,7 @@ export default function EmployeeForm({ employee, errors, fields }: Props) {
 
           <div>
             <label className="block text-sm font-medium">
-              End Date (Optional)
+              End Date
             </label>
             <input
               type="date"

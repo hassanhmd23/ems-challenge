@@ -1,53 +1,67 @@
-import { useLoaderData, Form, redirect } from "react-router";
-import { getDB } from "~/db/getDB";
+import { useLoaderData, redirect, data, useActionData } from "react-router";
+import type { ActionFunction } from "react-router";
+import * as Yup from "yup";
+
+import TimeSheetForm from "~/components/time-sheet/form/TimeSheetForm";
+import { getAllEmployees } from "~/repositories/employeesRepository";
+import { createTimeSheet } from "~/repositories/timeSheetRepository";
+import { TimeSheetSchema as schema, type TimeSheet } from "~/types/TimeSheet";
+import objectNotEmpty from "~/utils/objectNotEmpty";
+import validationAction from "~/utils/validationAction";
 
 export async function loader() {
-  const db = await getDB();
-  const employees = await db.all('SELECT id, full_name FROM employees');
+  const employees = await getAllEmployees();
   return { employees };
 }
 
-import type { ActionFunction } from "react-router";
+type ActionInput = Yup.InferType<typeof schema>;
 
 export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-  const employee_id = formData.get("employee_id"); // <select /> input with name="employee_id"
-  const start_time = formData.get("start_time");
-  const end_time = formData.get("end_time");
+  const parsedFormData = await request.formData();
+  let { validatedFormData, errors } = await validationAction<ActionInput>({
+    parsedFormData,
+    schema,
+  });
 
-  const db = await getDB();
-  await db.run(
-    'INSERT INTO timesheets (employee_id, start_time, end_time) VALUES (?, ?, ?)',
-    [employee_id, start_time, end_time]
-  );
+  if (objectNotEmpty(errors)) {
+    return data(
+      { errors, validatedFormData },
+      {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
+  const { lastID } = await createTimeSheet(validatedFormData as TimeSheet);
+
+  if (!lastID) {
+    return data(
+      {
+        errors: { full_name: "Could not create timeSheet" },
+        validatedFormData,
+      },
+      {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
   return redirect("/timesheets");
-}
+};
 
 export default function NewTimesheetPage() {
-  const { employees } = useLoaderData(); // Used to create a select input
+  const { employees } = useLoaderData();
+  const actionData = useActionData();
+  const errors = actionData?.errors;
+  const fields = actionData?.validatedFormData as ActionInput;
+
   return (
-    <div>
-      <h1>Create New Timesheet</h1>
-      <Form method="post">
-        <div>
-          {/* Use employees to create a select input */}
-        </div>
-        <div>
-          <label htmlFor="start_time">Start Time</label>
-          <input type="datetime-local" name="start_time" id="start_time" required />
-        </div>
-        <div>
-          <label htmlFor="end_time">End Time</label>
-          <input type="datetime-local" name="end_time" id="end_time" required />
-        </div>
-        <button type="submit">Create Timesheet</button>
-      </Form>
-      <hr />
-      <ul>
-        <li><a href="/timesheets">Timesheets</a></li>
-        <li><a href="/employees">Employees</a></li>
-      </ul>
-    </div>
+    <TimeSheetForm employees={employees} errors={errors} fields={fields} />
   );
 }

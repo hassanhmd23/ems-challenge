@@ -8,7 +8,7 @@ import {
 import { parseFormData } from "@mjackson/form-data-parser";
 import * as Yup from "yup";
 import type { Route } from "./+types/route";
-import EmployeeForm from "~/components/form/EmployeeForm";
+import EmployeeForm from "~/components/employee/form/EmployeeForm";
 import validationAction from "~/utils/validationAction";
 import objectNotEmpty from "~/utils/objectNotEmpty";
 import { uploadHandler } from "~/utils/uploadHandler";
@@ -78,14 +78,10 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function EmployeePage() {
-  const { employee, status } = useLoaderData() as {
+  const { employee } = useLoaderData() as {
     employee: Employee;
     status: number;
   };
-
-  if (status === 404) {
-    return <div>Employee not found</div>;
-  }
 
   const actionData = useActionData();
   const errors = actionData?.errors;

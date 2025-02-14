@@ -1,10 +1,14 @@
 import { getDB } from "~/db/getDB";
 import type { Employee } from "~/types/Employee";
 
-const db = await getDB();
-
 export const getEmployee = async (employeeId: string) => {
+  const db = await getDB();
   return await db.get("SELECT * FROM employees WHERE id = ?", employeeId);
+};
+
+export const getAllEmployees = async () => {
+  const db = await getDB();
+  return await db.all("SELECT id, full_name FROM employees");
 };
 
 export const getEmployeesWithRules = async ({
@@ -18,6 +22,7 @@ export const getEmployeesWithRules = async ({
   safeSortColumn?: string;
   sortOrder?: "ASC" | "DESC";
 }) => {
+  const db = await getDB();
   let query = `
     SELECT id, profile_picture, full_name, department, job_title
     FROM employees
@@ -36,6 +41,7 @@ export const getTotalEmployeesWithRules = async ({
   whereClauses?: string[];
   params?: any[];
 }) => {
+  const db = await getDB();
   const totalQuery = `
     SELECT COUNT(*) as total FROM employees
     ${whereClauses.length ? "WHERE " + whereClauses.join(" AND ") : ""};
@@ -45,6 +51,7 @@ export const getTotalEmployeesWithRules = async ({
 };
 
 export const createEmployee = async (employee: Employee) => {
+  const db = await getDB();
   const query = `
         INSERT INTO employees (
         full_name,
@@ -81,6 +88,7 @@ export const updateEmployee = async (
   employeeId: string,
   employee: Employee
 ) => {
+  const db = await getDB();
   let query = `
     UPDATE employees
     SET

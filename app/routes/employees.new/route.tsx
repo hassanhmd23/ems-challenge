@@ -7,7 +7,7 @@ import {
 import * as Yup from "yup";
 import { parseFormData } from "@mjackson/form-data-parser";
 
-import EmployeeForm from "~/components/form/EmployeeForm";
+import EmployeeForm from "~/components/employee/form/EmployeeForm";
 import { EmployeeSchema as schema, type Employee } from "~/types/Employee";
 import { createEmployee } from "~/repositories/employeesRepository";
 import validationAction from "~/utils/validationAction";

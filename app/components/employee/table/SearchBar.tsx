@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-type SearchBarProps = {
+type Props = {
   initialQuery?: string;
   onSearch: (query: string) => void;
 };
 
-export default function SearchBar({ initialQuery = "", onSearch }: SearchBarProps) {
+export default function SearchBar({ initialQuery = "", onSearch }: Props) {
   const [query, setQuery] = useState(initialQuery);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -22,7 +22,7 @@ export default function SearchBar({ initialQuery = "", onSearch }: SearchBarProp
         placeholder="Search employees..."
         className="border border-gray-300 rounded px-3 py-2 w-full"
       />
-      <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
+      <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer">
         Search
       </button>
     </form>
